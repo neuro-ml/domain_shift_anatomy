@@ -7,9 +7,9 @@ instructions, allowing for reproduction of the experiments.
 
 ### Setting up the Libraries:
 
-###### 1. Add `damri` to the local python:
+###### 1. Add `spottunet` to the local python:
 ```
-ln -sfn ~/workspace/domain_adaptation_mri/damri ~/miniconda3/lib/python3.*/site-packages/
+ln -sfn ~/workspace/domain_adaptation_mri/spottunet ~/miniconda3/lib/python3.*/site-packages/
 ``` 
 where `*` is the version of your python.
 
