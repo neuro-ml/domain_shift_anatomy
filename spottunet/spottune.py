@@ -28,15 +28,15 @@ def train_step_spottune(*inputs: np.ndarray, architecture_main, architecture_pol
         inputs_source, targets_source = inputs_source[0], inputs_source[1]
 
         #  getting the policy (source)
-        probs_source = architecture_policy(inputs_source)  # [32, 16]
+        probs_source = architecture_policy(inputs_source)  # [batch, 16]
         action_source = gumbel_softmax(probs_source.view(probs_source.size(0), -1, 2),
-                                       temperature=temperature)  # [32, 8, 2]
-        policy_source = action_source[:, :, 1]  # [32, 8]
+                                       temperature=temperature)  # [batch, 8, 2]
+        policy_source = action_source[:, :, 1]  # [batch, 8]
 
         # getting the policy (target)
-        probs = architecture_policy(inputs_target)  # [32, 16]
-        action = gumbel_softmax(probs.view(probs.size(0), -1, 2), temperature=temperature)  # [32, 8, 2]
-        policy = action[:, :, 1]  # [32, 8]
+        probs = architecture_policy(inputs_target)  # [batch, 16]
+        action = gumbel_softmax(probs.view(probs.size(0), -1, 2), temperature=temperature)  # [batch, 8, 2]
+        policy = action[:, :, 1]  # [batch, 8]
 
         # forward (target)
         outputs = architecture_main.forward(inputs_target, policy)

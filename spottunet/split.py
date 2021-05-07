@@ -28,8 +28,7 @@ def single_cv(df, n_splits=3, val_size=2, seed=0xBadCafe):
     return split
 
 
-def one2one(df, val_size=2, n_add_ids=5, train_on_add_only=False, seed=0xBadCafe, train_on_source_only=False,
-            n_first_exclude=0):
+def one2one(df, val_size=2, n_add_ids=5, train_on_add_only=False, seed=0xBadCafe, train_on_source_only=False):
     random.seed(seed)
     folds = sorted(df.fold.unique())
     split = []
@@ -47,4 +46,4 @@ def one2one(df, val_size=2, n_add_ids=5, train_on_add_only=False, seed=0xBadCafe
             split.append([deepcopy(ids_train), random.sample(ids_test, val_size), ids_test]
                          if (not train_on_add_only) and train_on_source_only else
                          [deepcopy(ids_train) + ids_train_add, random.sample(ids_test, val_size), ids_test])
-    return split[n_first_exclude:]
+    return split
