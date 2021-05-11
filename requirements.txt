@@ -11,3 +11,4 @@ resource-manager>=0.10<1.0
 loky~=2.8.0
 nibabel
 deep_pipe
+statsmodels
