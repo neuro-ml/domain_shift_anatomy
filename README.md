@@ -34,24 +34,24 @@ the line `102` should be commented, please do it
 
 ### Reproducing the Experiments 
 
-1. The path to your local copy of CC359 should be specified here: `config/assets/dataset/cc359.config`. You should place `config/assets/dataset/meta.csv` in the same folder with the data. From the available in `CC359` ground truths we used the "Silver standard" binary mask (https://sites.google.com/view/calgary-campinas-dataset/download)
+1. The path to your local copy of CC359 should be specified here: `config/assets/dataset/cc359.config`. You should place `~/domain_shift_anatomy/configs/assets/dataset/meta.csv` in the same folder with the data. From the available in `CC359` ground truths we used the "Silver standard" binary mask (https://sites.google.com/view/calgary-campinas-dataset/download)
 
-2. You should specify the 'device' on which you are going to run an experiment by setting the corresponding variable 'device', in `/config/assets/core/` (line 78)
+2. You should specify the 'device' on which you are going to run an experiment by setting the corresponding variable 'device', in `~/domain_shift_anatomy/configs/assets/core.config` (line 78)
 
 3. To run a single experiment, please follow the steps below:
 
 First, the experiment structure should be created:
 ```
-dpipe-build /path/to/the/config /path/to/the/experiment
+dpipe-build /path/to/the/config.config /path/to/the/experiment/
 # e.g.
-dpipe-build ~/domain_shift_anatomy/configs/experiments/finetune/unfreeze_first.config ~/dart_results/unfreeze_first
+dpipe-build ~/domain_shift_anatomy/configs/experiments/finetune/unfreeze_first.config ~/dart_results/unfreeze_first/
 ```
 
 where the first argument is the path to the `.config` file and the second argument is the path to the folder where the experiment structure will be organized.
 
 Then, to run an experiment please go to the experiment folder inside the created structure (`i` corresponds to the particular experiment, i.e. to the particular source-target pair):
 ```
-cd ~/dart_results/unfreeze_first/experiment_{i} 
+cd ~/dart_results/unfreeze_first/experiment_{i}/
 ```
 
 and call the following command to start the experiment:
