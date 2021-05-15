@@ -5,10 +5,43 @@ import torch
 from torch.nn import Module
 from torch.optim import Optimizer
 
-from dpipe.im.utils import identity
+from dpipe.im.utils import identity, dmap
 from dpipe.torch.utils import *
 from dpipe.torch.model import *
-from .gumbel_softmax import gumbel_softmax
+from spottunet.torch.functional import gumbel_softmax
+
+
+def train_step(*inputs, architecture, criterion, optimizer, n_targets=1, loss_key=None,
+               alpha_l2sp=None, reference_architecture=None, **optimizer_params):
+    architecture.train()
+    if n_targets >= 0:
+        n_inputs = len(inputs) - n_targets
+    else:
+        n_inputs = -n_targets
+
+    assert 0 <= n_inputs <= len(inputs)
+    inputs = sequence_to_var(*inputs, device=architecture)
+    inputs, targets = inputs[:n_inputs], inputs[n_inputs:]
+
+    if alpha_l2sp is not None:
+        if reference_architecture is None:
+            raise ValueError('`reference_architecture` should be provided for L2-SP regularization.')
+
+        w_diff = torch.tensor(0., requires_grad=True, dtype=torch.float32)
+        w_diff.to(get_device(architecture))
+        for p1, p2 in zip(architecture.parameters(), reference_architecture.parameters()):
+            w_diff = w_diff + torch.sum((p1 - p2) ** 2)
+
+        loss = criterion(architecture(*inputs), *targets) + alpha_l2sp * w_diff
+    else:
+        loss = criterion(architecture(*inputs), *targets)
+
+    if loss_key is not None:
+        optimizer_step(optimizer, loss[loss_key], **optimizer_params)
+        return dmap(to_np, loss)
+
+    optimizer_step(optimizer, loss, **optimizer_params)
+    return to_np(loss)
 
 
 def train_step_spottune(*inputs: np.ndarray, architecture_main, architecture_policy, k_reg, reg_mode, temperature,

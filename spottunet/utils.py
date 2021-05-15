@@ -13,10 +13,6 @@ def get_pred(x, threshold=0.5):
     return x > threshold
 
 
-def get_damri_dir_name():
-    return os.path.dirname(__file__)
-
-
 def fix_seed(seed=0xBadCafe):
     random.seed(seed)
     np.random.seed(seed)
@@ -41,5 +37,3 @@ def sdice(a, b, spacing, tolerance):
 def skip_predict(output_path):
     print(f'>>> Passing the step of saving predictions into `{output_path}`', flush=True)
     os.makedirs(output_path)
-
-

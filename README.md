@@ -44,7 +44,7 @@ First, the experiment structure should be created:
 ```
 dpipe-build /path/to/the/config /path/to/the/experiment
 # e.g.
-dpipe-build ~/config/experiments/unet2d/unfreeze_first.config ~/dart_results/unfreeze_first
+dpipe-build ~/domain_shift_anatomy/configs/experiments/finetune/unfreeze_first.config ~/dart_results/unfreeze_first
 ```
 
 where the first argument is the path to the `.config` file and the second argument is the path to the folder where the experiment structure will be organized.

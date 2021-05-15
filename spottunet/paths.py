@@ -1,7 +1,6 @@
 from .utils import choose_root
 
 
-# DATA_PATH = 'path/to/dataset/cc359'
 DATA_PATH = choose_root(
     '/nmnt/x3-hdd/data/da_mri/cc359',
     '/gpfs/data/gpfs0/b.shirokikh/data/cc359',
