@@ -1,8 +1,8 @@
 Hello! :vulcan_salute:
 
 Here, you may find the code for the paper
-**Anatomy of Domain Shift Impact on U-Net Layers in MRI Segmentation**
-submitted to MICCAI-2021 conference. Below are the instructions,
+**Anatomy of Domain Shift Impact on U-Net Layers in MRI Segmentation** (https://arxiv.org/abs/2107.04914)
+accepted for MICCAI-2021 conference. Below are the instructions,
 allowing for reproduction of the experiments.
 
 ![Screenshot](spottune_seg.png)
